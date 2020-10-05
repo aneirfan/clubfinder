@@ -1,16 +1,20 @@
-function DataSource(onSuccess, onFailed) {
-    this.onSuccess = onSuccess;
-    this.onFailed = onFailed;
+import clubs from './clubs.js';
+
+class DataSource {
+    static searchClub(keyword) {
+        return fetch(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${keyword}`)
+            .then(response => {
+                return response.json()
+            })
+            .then(responseJson => {
+                if(responseJson.teams) {
+                    return Promise.resolve(responseJson.teams);
+                } else {
+                    return Promise.reject(`${keyword} is not found`)
+                }
+            })
+    }
+
 }
 
-DataSource.prototype.searchClub = function (keyword) {
-    var filteredClubs = clubs.filter(function (club) {
-        return club.name.toUpperCase().includes(keyword.toUpperCase());
-    });
-
-    if (filteredClubs.length) {
-        this.onSuccess(filteredClubs);
-    } else {
-        this.onFailed(keyword + " is not found");
-    }
-};
+export default DataSource;
