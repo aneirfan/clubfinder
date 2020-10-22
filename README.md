@@ -13,6 +13,7 @@ Then to start the project (the server) please run the following command
 `sh
 npm run start-dev
 `
+
 Your default browser should open automatically and your app should be up and running. 
 
 ## Some screnshots 
